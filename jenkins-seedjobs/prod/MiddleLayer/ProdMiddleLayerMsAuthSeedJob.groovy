@@ -13,7 +13,7 @@ def pipelineGitUrl = 'https://github.com/Aaron1989/jenkins-groovy.git'
 def ECS_IP = [' ', ' ']
 
 
-def GITURL = 'http://h.quyiyuan.com/scm/ms/ms-oauth2.git' //git仓库地址
+def GITURL = 'http:// <git>/scm/ms/ms-oauth2.git' //git仓库地址
 def Git_AUTH = 'dingqishi' //git仓库认证账号
 def BRANCH = '*/release'  //发布分支
 

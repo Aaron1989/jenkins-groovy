@@ -6,7 +6,7 @@ def DEPLOY_JOB_NAME = Folder+'/'+'Gray-Hms-MS-IM-Deploy' //发布job名称，不
 def PIPELINE_JOB_NAME =  Folder+'/'+'Gray-Hms-MS-IM-Pipeline'
 def  ECS_IP = [' ']
 
-def GITURL = 'http://h.quyiyuan.com/scm/ysapp/ms-im.git' //git仓库地址
+def GITURL = 'http:// <git>/scm/ysapp/ms-im.git' //git仓库地址
 def Git_AUTH = 'GIT_2060' //git仓库认证账号
 def BRANCH = '*/release'  //发布分支
 

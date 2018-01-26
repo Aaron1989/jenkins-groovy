@@ -6,7 +6,7 @@ def DEPLOY_JOB_NAME1 = Folder+'/'+'Prod-Plugins-MsInspectionBackend-Deploy1' //�
 def DEPLOY_JOB_NAME2 = Folder+'/'+'Prod-Plugins-MsInspectionBackend-Deploy2' //发布job名称，不可以使用中文
 def PIPELINE_JOB_NAME = Folder+'/'+'Prod-Plugins-MsInspectionBackend-Pipeline'
 
-def GITURL = 'http://h.quyiyuan.com/scm/qy-components/backend-inspection.git' //git仓库地址
+def GITURL = 'http:// <git>/scm/qy-components/backend-inspection.git' //git仓库地址
 def Git_AUTH = '6b5de867-3f96-4162-9384-4c81e0e7063c' //git仓库认证账号
 def BRANCH = '*/release'  //发布分支
 

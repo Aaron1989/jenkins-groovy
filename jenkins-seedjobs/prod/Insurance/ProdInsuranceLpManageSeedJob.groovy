@@ -6,7 +6,7 @@ def DEPLOY_JOB_NAME1 = Folder+'/'+'Prod-Insurance-Lp-Manage-Deploy1' //发布job
 def DEPLOY_JOB_NAME2 = Folder+'/'+'Prod-Insurance-Lp-Manage-Deploy2' //发布job名称，不可以使用中文
 def PIPELINE_JOB_NAME = Folder+'/'+'Prod-Insurance-Lp-Manage-Pipeline'
 
-def GITURL = 'http://h.quyiyuan.com/scm/pt/insurance_lp_server.git' //git仓库地址
+def GITURL = 'http:// <git>/scm/pt/insurance_lp_server.git' //git仓库地址
 def Git_AUTH = 'GIT_2060' //git仓库认证账号
 def BRANCH = ''  //发布分支
 

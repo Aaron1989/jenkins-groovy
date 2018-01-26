@@ -8,7 +8,7 @@ def DEPLOY_JOB_NAME1 = Folder+'/'+'Prod-Kypay-EurekaServer-Deploy1' //发布job�
 def DEPLOY_JOB_NAME2 = Folder+'/'+'Prod-Kypay-EurekaServer-Deploy2' //发布job名称，不可以使用中文
 def PIPELINE_JOB_NAME1 = Folder+'/'+'Prod-Kypay-EurekaServer-Pipeline'
 
-def GITURL = 'http://h.quyiyuan.com/scm/qypay/eurekaserver.git' //git仓库地址
+def GITURL = 'http:// <git>/scm/qypay/eurekaserver.git' //git仓库地址
 def Git_AUTH = 'dingqishi' //git仓库认证账号
 def BRANCH = '*/release'  //发布分支
 

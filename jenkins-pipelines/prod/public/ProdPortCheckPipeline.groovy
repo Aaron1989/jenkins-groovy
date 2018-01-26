@@ -1,6 +1,6 @@
 def ip = params.IP
 def port = params.PORT
-def gitUrl = 'http://h.quyiyuan.com/scm/devops/devops-shell.git'
+def gitUrl = 'http:// <git>/scm/devops/devops-shell.git'
 
 node('docker-python') {
     stage ('Send wechat message') {

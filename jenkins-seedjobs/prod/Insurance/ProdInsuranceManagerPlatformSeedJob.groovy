@@ -5,7 +5,7 @@ def COMPILE_JOB_NAME = Folder+'/'+'Prod-Insurance-Manager-Platform-Compile' //�
 def DEPLOY_JOB_NAME = Folder+'/'+'Prod-Insurance-Manager-Platform-Deploy' //发布job名称，不可以使用中文
 def PIPELINE_JOB_NAME = Folder+'/'+'Prod-Insurance-Manager-Platform-Pipeline'
 
-def GITURL = 'http://h.quyiyuan.com/scm/in/insurance_manger_platform.git' //git仓库地址
+def GITURL = 'http:// <git>/scm/in/insurance_manger_platform.git' //git仓库地址
 def Git_AUTH = '6b5de867-3f96-4162-9384-4c81e0e7063c' //git仓库认证账号
 def BRANCH = ''  //发布分支
 

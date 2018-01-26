@@ -215,7 +215,7 @@ node ('base'){
 
         if (skip == 'skipfalse') {
 //            input 'chekout and continue'
-            git credentialsId: 'dingqishi', url: 'http://h.quyiyuan.com/scm/devops/jenkins-pipelines.git'
+            git credentialsId: 'dingqishi', url: 'http:// <git>/scm/devops/jenkins-pipelines.git'
 
             jobDsl removedJobAction: 'DELETE', targets: 'prod/plugins-new/mavenjobseedjob.groovy'
 

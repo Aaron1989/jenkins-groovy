@@ -7,7 +7,7 @@ def PIPELINE_JOB_NAME =  Folder+'/'+'Gray-Hms-MS-DES-Pipeline'
 //def OSS_JOB_NAME = Folder+'/'+'Prod-Hms-Ms-Des-OSS'
 def ECS_IP = [' ']
 
-def GITURL = 'http://h.quyiyuan.com/scm/ysapp/ms-des.git' //git仓库地址
+def GITURL = 'http:// <git>/scm/ysapp/ms-des.git' //git仓库地址
 def Git_AUTH = 'GIT_2060' //git仓库认证账号
 def BRANCH = '*/release'  //发布分支
 

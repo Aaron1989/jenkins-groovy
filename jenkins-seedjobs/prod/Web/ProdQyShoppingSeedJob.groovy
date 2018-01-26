@@ -4,8 +4,8 @@
 
 def DEPLOY_JOB_NAME =['Prod-Web-Qy-Shopping-Build', 'Prod-Web-Qy-Shopping-Deploy']
 def Pipeline_Job_name = 'Prod-Qy-Shopping-Pipeline'
-def gitUrl = "http://h.quyiyuan.com/scm/bigdata/qy-shopping.git"
-def dockerGitUrl = "http://h.quyiyuan.com/scm/dcd/dockercd-website.git"
+def gitUrl = "http:// <git>/scm/bigdata/qy-shopping.git"
+def dockerGitUrl = "http:// <git>/scm/dcd/dockercd-website.git"
 def gitBranch = "*/release"
 def gitAuth = "dingqishi"
 

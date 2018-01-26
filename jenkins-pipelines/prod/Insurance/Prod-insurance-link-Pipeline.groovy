@@ -15,7 +15,7 @@ def GROUP = 'qybx'
 def deploy_notification_job = 'Prod-Deploy-Notification'
 def deploy_record_job = 'Prod-Deploy-Record'
 def deploy_email_job = 'Prod-Email-Notification'
-def REPOSITORY_URL = 'http://h.quyiyuan.com/scm/in/insurance_link.git'
+def REPOSITORY_URL = 'http:// <git>/scm/in/insurance_link.git'
 
 //def WAR_NAME1 = 'customer-common-1.0.0.jar'
 //def WAR_NAME2 = 'customer_link-0.0.1-SNAPSHOT.jar'
@@ -147,7 +147,7 @@ node('base'){
         ])
         skip = 'skip' + userInput
         if (skip == 'skipfalse') {
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'dingqishi', url: 'http://h.quyiyuan.com/scm/devops/devops-shell.git']]])
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'dingqishi', url: 'http:// <git>/scm/devops/devops-shell.git']]])
         RECIPIENT = sh returnStdout: true, script: "python deploy_email_notify.py $GROUP"
         print RECIPIENT
         T = sh returnStdout: true, script: 'date +"%Y-%m-%d %H:%M"'

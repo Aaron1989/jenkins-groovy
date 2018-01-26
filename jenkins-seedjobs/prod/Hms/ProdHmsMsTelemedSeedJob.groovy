@@ -7,7 +7,7 @@ def DEPLOY_JOB_NAME2 = Folder+'/'+'Prod-Hms-MS-Telemed-Deploy2' //发布job名�
 def PIPELINE_JOB_NAME =  Folder+'/'+'Prod-Hms-MS-Telemed-Pipeline'
 def ECS_IP = [' ', ' ']
 
-def GITURL = 'http://h.quyiyuan.com/scm/ysapp/ms-telemed.git' //git仓库地址
+def GITURL = 'http:// <git>/scm/ysapp/ms-telemed.git' //git仓库地址
 def Git_AUTH = 'GIT_2060' //git仓库认证账号
 def BRANCH = '*/release'  //发布分支
 

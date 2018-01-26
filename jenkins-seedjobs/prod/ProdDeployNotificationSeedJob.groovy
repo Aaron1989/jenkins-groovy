@@ -1,4 +1,4 @@
-def GITURL = 'http://h.quyiyuan.com/scm/devops/devops-shell.git' //git仓库地址
+def GITURL = 'http:// <git>/scm/devops/devops-shell.git' //git仓库地址
 def Git_AUTH = 'dingqishi' //git仓库认证账号
 
 

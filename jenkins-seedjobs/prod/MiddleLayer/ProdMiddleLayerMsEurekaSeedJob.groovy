@@ -12,7 +12,7 @@ def DEPLOY_JOB_NAME2 = Folder+'/'+'Prod-MiddleLayer-MsEureka-Deploy2' //发布jo
 def PIPELINE_JOB_NAME1 = Folder+'/'+'Prod-MiddleLayer-MsEureka-Pipeline'
 def ECS_IP = [' ', ' ']
 
-def GITURL = 'http://h.quyiyuan.com/scm/qy-components/eureka-server.git' //git仓库地址
+def GITURL = 'http:// <git>/scm/qy-components/eureka-server.git' //git仓库地址
 
 def Git_AUTH = 'dingqishi' //git仓库认证账号
 def BRANCH = '*/release'  //发布分支

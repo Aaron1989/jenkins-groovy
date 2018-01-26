@@ -11,7 +11,7 @@ def DEPLOY_JOB_NAME1 = Folder+'/'+'Prod-MiddleLayer-MsConfigIsis-Deploy' //发�
 def PIPELINE_JOB_NAME1 = Folder+'/'+'Prod-MiddleLayer-MsConfigIsis-Pipeline'
 def ECS_IP = [' ']
 
-def GITURL = 'http://h.quyiyuan.com/scm/ms/isis-config.git' //git仓库地址
+def GITURL = 'http:// <git>/scm/ms/isis-config.git' //git仓库地址
 
 def Git_AUTH = 'dingqishi' //git仓库认证账号
 def BRANCH = '*/release'  //发布分支

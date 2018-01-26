@@ -5,7 +5,7 @@ def env = 'Prod'
 def group = 'Web'
 def productName = 'Website'
 def deployEcsIPs = [' ',' ']
-def gitUrl = "http://h.quyiyuan.com/scm/qyw/qy-web-ant.git"
+def gitUrl = "http:// <git>/scm/qyw/qy-web-ant.git"
 def gitBranch = "*/release"
 def gitAuth = "dingqishi"
 

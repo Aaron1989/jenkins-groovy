@@ -6,7 +6,7 @@ def GROUP = 'qybx'
 def deploy_notification_job = 'Prod-Public/Prod-Public-Wechat-Job'
 def deploy_record_job = 'Prod-Public/Prod-Public-Jira-Confirm'
 def deploy_email_job = 'Prod-Public/Prod-Public-Email-Job'
-def REPOSITORY_URL = 'http://h.quyiyuan.com/scm/in/insurance.git'
+def REPOSITORY_URL = 'http:// <git>/scm/in/insurance.git'
 
 def WAR_NAME = 'ms-insurance-1.0-SNAPSHOT.jar'
 

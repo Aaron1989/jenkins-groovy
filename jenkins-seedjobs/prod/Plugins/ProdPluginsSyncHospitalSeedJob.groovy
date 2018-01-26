@@ -4,7 +4,7 @@ def COMPILE_JOB_NAME = Folder+'/'+'Prod-Plugins-SyncHospital-Compile' //编译jo
 def DEPLOY_JOB_NAME = Folder+'/'+'Prod-Plugins-SyncHospital-Deploy' //发布job名称，不可以使用中文
 def PIPELINE_JOB_NAME = Folder+'/'+'Prod-Plugins-sync-hospital-Pipeline'
 
-def GITURL = 'http://h.quyiyuan.com/scm/qy-components/sync-hospital.git' //git仓库地址
+def GITURL = 'http:// <git>/scm/qy-components/sync-hospital.git' //git仓库地址
 def Git_AUTH = '6b5de867-3f96-4162-9384-4c81e0e7063c' //git仓库认证账号
 def BRANCH = '*/release'  //发布分支
 

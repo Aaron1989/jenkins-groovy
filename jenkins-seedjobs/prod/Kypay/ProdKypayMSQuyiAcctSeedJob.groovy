@@ -8,7 +8,7 @@ def DEPLOY_JOB_NAME1 = Folder+'/'+'Prod-Kypay-MS-QuyiAcct-Deploy1' //发布job�
 def DEPLOY_JOB_NAME2 = Folder+'/'+'Prod-Kypay-MS-QuyiAcct-Deploy2' //发布job名称，不可以使用中文
 def PIPELINE_JOB_NAME1 = Folder+'/'+'Prod-Kypay-MS-QuyiAcct-Pipeline'
 
-def GITURL = 'http://h.quyiyuan.com/scm/qypay/ms-quyiacct.git' //git仓库地址
+def GITURL = 'http:// <git>/scm/qypay/ms-quyiacct.git' //git仓库地址
 def Git_AUTH = 'dingqishi' //git仓库认证账号
 def BRANCH = '*/release'  //发布分支
 

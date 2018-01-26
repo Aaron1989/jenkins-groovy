@@ -5,7 +5,7 @@ def GROUP = 'qybx'
 def deploy_notification_job = 'Prod-Public/Prod-Public-Wechat-Job'
 def deploy_record_job = 'Prod-Public/Prod-Public-Jira-Confirm'
 def deploy_email_job = 'Prod-Public/Prod-Public-Email-Job'
-def REPOSITORY_URL = 'http://h.quyiyuan.com/scm/pt/insurance_web_link.git'
+def REPOSITORY_URL = 'http:// <git>/scm/pt/insurance_web_link.git'
 
 def WAR_NAME = 'frontend.tar.gz'
 

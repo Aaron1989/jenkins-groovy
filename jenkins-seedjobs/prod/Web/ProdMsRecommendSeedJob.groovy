@@ -5,7 +5,7 @@ def env = 'Prod'
 def group = 'Web'
 def productName = 'Ms-Recommend'
 def deployEcsIPs = [' ',' ']
-def gitUrl = "http://h.quyiyuan.com/scm/bigdata/ms-recommend.git"
+def gitUrl = "http:// <git>/scm/bigdata/ms-recommend.git"
 def gitBranch = "*/release"
 def gitAuth = "dingqishi"
 

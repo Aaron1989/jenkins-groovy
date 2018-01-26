@@ -6,7 +6,7 @@ def DEPLOY_JOB_NAME = Folder+'/'+'Prod-Insurance-Web-Link-Deploy1' //发布job�
 def DEPLOY_JOB_NAME2 = Folder+'/'+'Prod-Insurance-Web-Link-Deploy2' //发布job名称，不可以使用中文
 def PIPELINE_JOB_NAME = Folder+'/'+'Prod-Insurance-Web-Link-Pipeline'
 
-def GITURL = 'http://h.quyiyuan.com/scm/pt/insurance_web_link.git' //git仓库地址
+def GITURL = 'http:// <git>/scm/pt/insurance_web_link.git' //git仓库地址
 def Git_AUTH = 'dingqishi' //git仓库认证账号
 
 def ENV = 'prod'  //配置文件环境

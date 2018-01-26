@@ -1,6 +1,6 @@
 s#!/usr/bin/env groovy
 
-def gitUrl = "http://h.quyiyuan.com/scm/kyeeweb/kyeeweb.git"
+def gitUrl = "http:// <git>/scm/kyeeweb/kyeeweb.git"
 def gitBranch = "*/release"
 def gitAuth = "dingqishi"
 
@@ -20,8 +20,8 @@ mavenJob(compileJobName) {
         stringParam ('TAG',"")
         textParam ('Description',"")
 		stringParam ('host',"oss-cn-qingdao-internal.aliyuncs.com")
-		stringParam ('id',"LTAIfI82IUskSz7o")
-		stringParam ('key',"TfAL1URJDundF3vumavlZBRNryrUFK")
+		stringParam ('id',"  ")
+		stringParam ('key',"   ")
     }
 
 	label('compile')
@@ -111,7 +111,7 @@ freeStyleJob(deployJobName) {
             "sleep 60\n" +
             "python main.py http://localhost:8081/error.html\n" +
             "sleep 30\n" +
-            "python  /opt/OSS_Python_API/osscmd uploadfromdir output/  oss://ky-group-prd --host=oss-cn-qingdao-internal.aliyuncs.com --id=LTAIfI82IUskSz7o --key=TfAL1URJDundF3vumavlZBRNryrUFK --check_md5=true --check_point=cpcheck.txt\n" +
+            "python  /opt/OSS_Python_API/osscmd uploadfromdir output/  oss://ky-group-prd --host=oss-cn-qingdao-internal.aliyuncs.com --id=   --key=    --check_md5=true --check_point=cpcheck.txt\n" +
 		    "for pid in \$(ps -ef|grep KyeeWeb-0.0.1-SNAPSHOT.jar|grep -v grep|grep -v bash|cut -c 10-15);\n" +
             "        " + "do\n" +
             "            " + "echo \$pid;\n" +
@@ -124,7 +124,7 @@ freeStyleJob(deployJobName) {
     scm {
       git{
         remote {
-            url("http://h.quyiyuan.com/scm/kyeeweb/crawlerimage.git")
+            url("http:// <git>/scm/kyeeweb/crawlerimage.git")
 		    branch("*/master")
 		    credentials(gitAuth)
         }

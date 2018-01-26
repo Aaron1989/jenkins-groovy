@@ -13,7 +13,7 @@ def PIPELINE_JOB_NAME1 = Folder+'/'+'Prod-MiddleLayer-MsCloud-Pipeline'
 def ECS_IP = [' ', ' ']
 
 
-def GITURL = 'http://h.quyiyuan.com/scm/qy-components/ms-public.git' //git仓库地址
+def GITURL = 'http:// <git>/scm/qy-components/ms-public.git' //git仓库地址
 
 def Git_AUTH = 'dingqishi' //git仓库认证账号
 def BRANCH = '*/release'  //发布分支

@@ -4,7 +4,7 @@ def jiraId = params.JIRA_ID
 def group = params.GROUP
 def applicationName = params.APPLICATION_NAME
 def description = params.DESCRIPTION
-def url = 'http://h.quyiyuan.com/scm/devops/devops-shell.git'
+def url = 'http:// <git>/scm/devops/devops-shell.git'
 
 node {
     stage('email-notification') {

@@ -88,7 +88,7 @@ node('base'){
         ])
         skip = 'skip' + userInput
         if (skip == 'skipfalse') {
-            checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'dingqishi', url: 'http://h.quyiyuan.com/scm/devops/devops-shell.git']]])
+            checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'dingqishi', url: 'http:// <git>/scm/devops/devops-shell.git']]])
             RECIPIENT = sh returnStdout: true, script: "python deploy_email_notify.py $GROUP"
             print RECIPIENT
             T = sh returnStdout: true, script: 'date +"%Y-%m-%d %H:%M"'

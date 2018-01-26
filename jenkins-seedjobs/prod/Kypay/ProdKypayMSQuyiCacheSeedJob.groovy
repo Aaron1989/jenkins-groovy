@@ -7,7 +7,7 @@ def COMPILE_JOB_NAME = Folder+'/'+'Prod-Kypay-MS-QuyiCache-Compile' //编译job�
 def DEPLOY_JOB_NAME = Folder+'/'+'Prod-Kypay-MS-QuyiCache-Deploy' //发布job名称，不可以使用中文
 def PIPELINE_JOB_NAME1 = Folder+'/'+'Prod-Kypay-MS-QuyiCache-Pipeline'
 
-def GITURL = 'http://h.quyiyuan.com/scm/qypay/ms-quyicache.git' //git仓库地址
+def GITURL = 'http:// <git>/scm/qypay/ms-quyicache.git' //git仓库地址
 def Git_AUTH = 'dingqishi' //git仓库认证账号
 def BRANCH = '*/release'  //发布分支
 

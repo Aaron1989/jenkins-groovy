@@ -4,7 +4,7 @@ def COMPILE_JOB_NAME = Folder+'/'+'Stg-Qypay-MS-Scheduler-Compile' //编译job�
 def DEPLOY_JOB_NAME = Folder+'/'+'Stg-Qypay-MS-Scheduler-Deploy' //发布job名称，不可以使用中文
 def PIPELINE_JOB_NAME1 = Folder+'/'+'Stg-Qypay-MS-Scheduler-Pipeline'
 
-def GITURL = 'http://h.quyiyuan.com/scm/qypay/ms-scheduler.git' //git仓库地址
+def GITURL = 'http:// <git>/scm/qypay/ms-scheduler.git' //git仓库地址
 def Git_AUTH = 'dingqishi' //git仓库认证账号
 def BRANCH = '*/staging'  //发布分支
 

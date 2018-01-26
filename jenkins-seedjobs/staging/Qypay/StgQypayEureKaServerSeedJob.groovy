@@ -6,7 +6,7 @@ def DEPLOY_JOB_NAME = Folder+'/'+'Stg-Qypay-EureKaServer-Deploy' //发布job名�
 def PIPELINE_JOB_NAME1 = Folder+'/'+'Stg-Qypay-EurekaServer-Pipeline'
 
 
-def GITURL = 'http://h.quyiyuan.com/scm/qypay/eurekaserver.git' //git仓库地址
+def GITURL = 'http:// <git>/scm/qypay/eurekaserver.git' //git仓库地址
 def Git_AUTH = 'dingqishi' //git仓库认证账号
 def BRANCH = '*/staging'  //发布分支
 

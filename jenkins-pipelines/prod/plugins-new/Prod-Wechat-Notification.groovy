@@ -4,7 +4,7 @@ def group = params.GROUP
 def applicationName = params.APPLICATION_NAME
 def stageStatus = params.STAGE
 def description = params.DESCRIPTION
-def gitUrl = 'http://h.quyiyuan.com/scm/devops/devops-shell.git'
+def gitUrl = 'http:// <git>/scm/devops/devops-shell.git'
 
 node() {
     stage ('Send wechat message') {

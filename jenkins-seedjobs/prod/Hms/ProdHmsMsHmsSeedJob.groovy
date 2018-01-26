@@ -7,7 +7,7 @@ def DEPLOY_JOB_NAME2 = Folder+'/'+'Prod-Hms-MS-HMS-Deploy2' //发布job名称，
 def PIPELINE_JOB_NAME1 =  Folder+'/'+'Prod-Hms-MS-HMS-Pipeline'
 def  ECS_IP = [' ',' ']
 
-def GITURL = 'http://h.quyiyuan.com/scm/ysapp/ms-hms.git' //git仓库地址
+def GITURL = 'http:// <git>/scm/ysapp/ms-hms.git' //git仓库地址
 def Git_AUTH = 'GIT_2060' //git仓库认证账号
 def BRANCH = '*/release'  //发布分支
 

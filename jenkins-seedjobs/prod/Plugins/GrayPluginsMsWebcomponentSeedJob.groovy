@@ -5,7 +5,7 @@ def Folder = 'Prod-Plugins'
 def COMPILE_JOB_NAME = Folder+'/'+'Gray-Plugins-MsWebcomponent-Compile' //编译job名称，不可以使用中文
 def DEPLOY_JOB_NAME = Folder+'/'+'Gray-Plugins-MsWebcomponent-Deploy' //发布job名称，不可以使用中文
 
-def GITURL = 'http://h.quyiyuan.com/scm/qy-components/web-component.git' //git仓库地址
+def GITURL = 'http:// <git>/scm/qy-components/web-component.git' //git仓库地址
 def Git_AUTH = '6b5de867-3f96-4162-9384-4c81e0e7063c' //git仓库认证账号
 def BRANCH = '*/release'  //发布分支
 
