@@ -1,0 +1,35 @@
+def DEPLOY_JOB_NAME1 = 'Prod-Web-Backend-Marketing-Compile'
+def DEPLOY_JOB_NAME2 = 'Prod-Web-Backend-Marketing-Build'
+def DEPLOY_JOB_NAME3 = 'Prod-Web-Backend-Marketing-Deploy'
+def PROFILE_ACTIVE = 'release'
+
+properties ([
+    parameters ([
+        string (
+            defaultValue: '',
+            description: '',
+            name: 'TAG'),
+        text (
+            defaultValue: '',
+            description: '',
+            name: 'Description'
+            )
+    ])
+])
+
+node() {
+    stage('Prod-Web/'+DEPLOY_JOB_NAME1) {
+        build job: 'Prod-Web/'+DEPLOY_JOB_NAME1,parameters :[string(name: 'TAG', value:env.TAG), text(name: 'Description', value:env.Description)]
+    }
+
+
+    stage('Prod-Web/'+DEPLOY_JOB_NAME2) {
+        build job: 'Prod-Web/'+DEPLOY_JOB_NAME2,parameters :[string(name: 'DOCKER_TAG_VERSION', value:env.TAG)]
+    }
+
+    stage('Prod-Web/'+DEPLOY_JOB_NAME3) {
+        input 'go on?'
+        build job: 'Prod-Web/'+DEPLOY_JOB_NAME3,parameters :[string(name: 'DOCKER_TAG_VERSION', value:env.TAG), string(name: 'PROFILE_ACTIVE', value:"$PROFILE_ACTIVE")]
+    }
+}
+

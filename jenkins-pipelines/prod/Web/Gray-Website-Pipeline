@@ -1,0 +1,74 @@
+def COMPILE_JOB_NAME = 'Gray-Website-Compile'
+def DEPLOY_JOB_NAME1 = 'Gray-Website-gateway-Pipeline'
+def DEPLOY_JOB_NAME2 = 'Gray-Website-dist-1-Pipeline'
+def DEPLOY_JOB_NAME3 = 'Gray-Website-dist-2-Pipeline'
+def DEPLOY_JOB_NAME4 = 'Gray-Website-ui-job-Deploy'
+def DEPLOY_JOB_NAME5 = 'Gray-Website-Cache'
+
+properties ([
+        parameters ([
+                string (
+                        defaultValue: '',
+                        description: '本次发布版本',
+                        name: 'TAG'),
+                string (
+                        defaultValue: '',
+                        description: '上一次版本',
+                        name: 'OLD_VERSION'),
+                password (
+                        defaultValue: '',
+                        description: 'jumpser登录密码',
+                        name: 'JPS_PWD'),
+                text (
+                        defaultValue: '',
+                        description: '发布描述',
+                        name: 'Description'),
+                string (
+                        defaultValue: '',
+                        description: '发布docker填true,不发布docker填false',
+                        name: 'Docker'),
+        ])
+])
+
+node {
+    stage('Compile') {
+        build job: "$COMPILE_JOB_NAME",parameters :[string(name: 'TAG', value:env.TAG), text(name: 'Description', value:env.Description)]
+
+    }
+
+    stage('SLB') {
+        build job: "Website_Gray_quyiyuan_SetWeight",parameters :[string(name: 'Weight', value:'0'),string(name: 'Docker_Weight', value:'0')]
+    }
+
+    stage('Deploy1') {
+        input 'Whether to release gray-website-job?'
+        parallel (
+                deploy_gateway: {
+                    build job: "$DEPLOY_JOB_NAME1",parameters :[string(name: 'TAG', value:env.TAG), string(name: 'OLD_VERSION', value:env.OLD_VERSION), password(name: 'JPS_PWD', value:env.JPS_PWD)]
+                },
+                deploy_dist1: {
+                    build job: "$DEPLOY_JOB_NAME2",parameters :[string(name: 'TAG', value:env.TAG), string(name: 'OLD_VERSION', value:env.OLD_VERSION), password(name: 'JPS_PWD', value:env.JPS_PWD)]
+                },
+                deploy_dist2: {
+                    build job: "$DEPLOY_JOB_NAME3",parameters :[string(name: 'TAG', value:env.TAG), string(name: 'OLD_VERSION', value:env.OLD_VERSION), password(name: 'JPS_PWD', value:env.JPS_PWD)]
+                }
+        )
+    }
+
+    stage('HomeCache'){
+        build job: "$DEPLOY_JOB_NAME5",parameters :[string(name: 'TAG', value:env.TAG), string(name: 'OLD_VERSION', value:env.OLD_VERSION), password(name: 'JPS_PWD', value:env.JPS_PWD)],wait: false
+    }
+
+    stage('Docker-Deploy'){
+        if (env.Docker == 'true'){
+            build job: "Docker-Deploy-Image-Pipeline",parameters :[string(name: 'TAG', value:env.TAG), text(name: 'GitDescription', value:env.TAG)],wait: false
+        }
+    }
+
+    stage('Ui-Job-Deploy'){
+        input 'Whether to release ui-job?'
+        build job: "$DEPLOY_JOB_NAME4",parameters :[string(name: 'TAG', value:env.TAG), string(name: 'OLD_VERSION', value:env.OLD_VERSION), password(name: 'JPS_PWD', value:env.JPS_PWD)]
+    }
+}
+
+

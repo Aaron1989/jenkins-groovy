@@ -1,0 +1,259 @@
+def COMPILE_JOB_NAME = 'Prod-Web-Website-Compile'
+def grayDeployJobName = 'Gray-Web-Website-Deploy'
+def grayDeployJobNames= []
+def numberOfgrayDeployJobs = 6
+def numberOfprodDeployJobs = 6
+def prodDeployJobName = 'Prod-Web-Website-Deploy'
+def prodDeployJobNames = []
+def Folder = "Prod-Web"
+def cacheJobNames = [Folder + '/' + 'Gray-Website-Cache', Folder + '/' + 'Prod-Website-Cache']
+def uiJobNames = [Folder + '/' + 'Gray-Ui-Job-Deploy', Folder + '/' + 'Prod-Ui-Job-Deploy']
+
+def GROUP = 'web'
+def deploy_notification_job = 'Prod-Deploy-Notification'
+def deploy_record_job = 'Prod-Deploy-Record'
+def deploy_email_job = 'Prod-Email-Notification'
+
+n = 0
+while (n < numberOfgrayDeployJobs) {
+    def item = Folder + '/' + grayDeployJobName + '-' + n
+    grayDeployJobNames.add(item)
+    n++
+}
+
+n=0
+
+while (n < numberOfprodDeployJobs) {
+    def item = Folder + '/' + prodDeployJobName + '-' + n
+    prodDeployJobNames.add(item)
+    n++
+}
+
+
+
+//def DEPLOY_JOB_NAME1 = 'Gray-Website-gateway-Pipeline'
+//def DEPLOY_JOB_NAME2 = 'Gray-Website-dist-1-Pipeline'
+//def DEPLOY_JOB_NAME3 = 'Gray-Website-dist-2-Pipeline'
+//def DEPLOY_JOB_NAME4 = 'Gray-Website-ui-job-Deploy'
+//def DEPLOY_JOB_NAME5 = 'Gray-Website-Cache'
+
+properties ([
+        parameters ([
+                string (
+                        defaultValue: '',
+                        description: '本次发布版本',
+                        name: 'TAG'),
+                string (
+                        defaultValue: '',
+                        description: '上一次版本',
+                        name: 'OLD_VERSION'),
+                password (
+                        defaultValue: '',
+                        description: 'jumpser登录密码',
+                        name: 'JPS_PWD'),
+                text (
+                        defaultValue: '',
+                        description: '发布描述',
+                        name: 'Description'),
+                string (
+                        defaultValue: '',
+                        description: '发布docker填true,不发布docker填false',
+                        name: 'Docker'),
+                string (
+                        name:'JiraID',
+                        defaultValue: ""
+                        ),
+                string (
+                        name:'APP_NAME',
+                        defaultValue: ""
+                        ),
+
+        ])
+])
+
+node('base'){
+    stage('deploy notification'){
+        def userInput = input(
+                id: 'userInput', message: 'go on?', parameters: [
+                [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'skip?', name: 'skip'],
+        ])
+        skip = 'skip' + userInput
+        if (skip == 'skipfalse') {
+        description = Description.replace("\r","#").replace("\n","#")
+        build job: deploy_notification_job, parameters: [string(name: 'TAG', value: TAG), string(name: 'JiraID', value: JiraID), text(name: 'Description', value: description), string(name: 'group', value: GROUP), string(name: 'app_name', value: APP_NAME), string(name: 'stage', value: 'start')]
+
+        }
+    }
+}
+
+node {
+    stage('Compile') {
+        def userInput = input(
+                id: 'userInput', message: 'go on?', parameters: [
+                [$class: 'BooleanParameterDefinition', defaultValue: false,description: 'skip?', name: 'skip'],
+        ])
+        def skip = 'skip' + userInput
+        echo (skip)
+        if (skip == 'skipfalse'){
+//            input 'go on?'
+            build job: COMPILE_JOB_NAME,parameters :[string(name: 'TAG', value:env.TAG), text(name: 'Description', value:env.Description)]
+        }
+////        build job: COMPILE_JOB_NAME,parameters :[string(name: 'TAG', value:env.TAG), text(name: 'Description', value:env.Description)]
+    }
+
+    stage('SLB') {
+//        input 'go on?'
+        def userInput = input(
+                id: 'userInput', message: 'go on?', parameters: [
+                [$class: 'BooleanParameterDefinition', defaultValue: false,description: 'skip?', name: 'skip'],
+        ])
+        def skip = 'skip' + userInput
+        echo (skip)
+        if (skip == 'skipfalse'){
+        build job: 'Prod-Web/Prod-allquyiyuancom-SLB', parameters: [string(name: 'gray_Weight', value: '0'), string(name: 'docker_Weight', value: '0'), string(name: 'prod_Weight', value: '100')]
+    }
+    }
+
+    stage('grayDeploy') {
+        input 'Whether to release gray-website-job?'
+        for (item in grayDeployJobNames){
+//            input 'go on?'
+            build job: item, parameters :[string(name: 'TAG', value:env.TAG), string(name: 'OLD_VERSION', value:env.OLD_VERSION), password(name: 'JPS_PWD', value:env.JPS_PWD)]
+            sleep 15
+        }
+//        input 'cache job?'
+        build job: cacheJobNames[0], wait: false
+    }
+
+    stage('grayuijobDeploy') {
+        def userInput = input(
+                id: 'userInput', message: 'go on?', parameters: [
+                [$class: 'BooleanParameterDefinition', defaultValue: false,description: 'skip?', name: 'skip'],
+        ])
+        def skip = 'skip' + userInput
+        echo (skip)
+        if (skip == 'skipfalse'){
+            input 'go on?'
+            build job: uiJobNames[0], parameters :[string(name: 'TAG', value:env.TAG), string(name: 'OLD_VERSION', value:env.OLD_VERSION), password(name: 'JPS_PWD', value:env.JPS_PWD)]
+        }
+    }
+
+//    stage('Docker-Deploy'){
+//        if (env.Docker == 'true'){
+//            build job: 'Prod-Web/Prod-allquyiyuancom-SLB', parameters: [string(name: 'gray_Weight', value: '100'), string(name: 'docker_Weight', value: '0'), string(name: 'prod_Weight', value: '100')]
+//            build job: 'Prod-Web/Prod-allquyiyuancom-SLB', parameters: [string(name: 'gray_Weight', value: '100'), string(name: 'docker_Weight', value: '0'), string(name: 'prod_Weight', value: '0')]
+//            build job: 'Prod-Web/Prod-all7yiyuancom-SLB', parameters: [string(name: 'gray_Weight', value: '0'), string(name: 'docker_Weight', value: '0'), string(name: 'prod_Weight', value: '100')]
+//        }
+//    }
+
+    stage('SLB') {
+        input 'go on?'
+        build job: 'Prod-Web/Prod-all7yiyuancom-SLB', parameters: [string(name: 'gray_Weight', value: '100'), string(name: 'docker_Weight', value: '0'), string(name: 'prod_Weight', value: '100')]
+        build job: 'Prod-Web/Prod-allquyiyuancom-SLB', parameters: [string(name: 'gray_Weight', value: '100'), string(name: 'docker_Weight', value: '0'), string(name: 'prod_Weight', value: '100')]
+        sleep 300
+        build job: 'Prod-Web/Prod-allquyiyuancom-SLB', parameters: [string(name: 'gray_Weight', value: '100'), string(name: 'docker_Weight', value: '0'), string(name: 'prod_Weight', value: '0')]
+        build job: 'Prod-Web/Prod-all7yiyuancom-SLB', parameters: [string(name: 'gray_Weight', value: '0'), string(name: 'docker_Weight', value: '0'), string(name: 'prod_Weight', value: '100')]
+    }
+
+    stage('prodDeploy') {
+        input 'Whether to release prod-website-job?'
+        for (item in prodDeployJobNames){
+//            input 'go on?'
+            build job: item, parameters :[string(name: 'TAG', value:env.TAG), string(name: 'OLD_VERSION', value:env.OLD_VERSION), password(name: 'JPS_PWD', value:env.JPS_PWD)]
+            sleep 15
+        }
+//        input 'cache job?'
+        build job: cacheJobNames[1], wait: false
+    }
+
+    stage('produijobDeploy') {
+        def userInput = input(
+                id: 'userInput', message: 'go on?', parameters: [
+                [$class: 'BooleanParameterDefinition', defaultValue: false,description: 'skip?', name: 'skip'],
+        ])
+        def skip = 'skip' + userInput
+        echo (skip)
+        if (skip == 'skipfalse'){
+            input 'go on?'
+            build job: uiJobNames[1], parameters :[string(name: 'TAG', value:env.TAG), string(name: 'OLD_VERSION', value:env.OLD_VERSION), password(name: 'JPS_PWD', value:env.JPS_PWD)]
+        }
+    }
+
+    stage('SLB') {
+        input 'go on?'
+        build job: 'Prod-Web/Prod-all7yiyuancom-SLB', parameters: [string(name: 'gray_Weight', value: '100'), string(name: 'docker_Weight', value: '0'), string(name: 'prod_Weight', value: '100')]
+        sleep 300
+        build job: 'Prod-Web/Prod-all7yiyuancom-SLB', parameters: [string(name: 'gray_Weight', value: '100'), string(name: 'docker_Weight', value: '0'), string(name: 'prod_Weight', value: '0')]
+        build job: 'Prod-Web/Prod-allquyiyuancom-SLB', parameters: [string(name: 'gray_Weight', value: '100'), string(name: 'docker_Weight', value: '0'), string(name: 'prod_Weight', value: '100')]
+    }
+  }
+node('base'){
+    stage('complete notification') {
+        def userInput = input(
+                id: 'userInput', message: 'go on?', parameters: [
+                [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'skip?', name: 'skip'],
+        ])
+        skip = 'skip' + userInput
+        if (skip == 'skipfalse') {
+        description = Description.replace("\r","#").replace("\n","#")
+        build job: deploy_notification_job, parameters: [string(name: 'TAG', value: TAG), string(name: 'JiraID', value: JiraID), text(name: 'Description', value: description), string(name: 'group', value: GROUP), string(name: 'app_name', value: APP_NAME), string(name: 'stage', value: 'end')]
+        }
+    }
+
+    stage('email notification') {
+        def userInput = input(
+                id: 'userInput', message: 'go on?', parameters: [
+                [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'skip?', name: 'skip'],
+        ])
+        skip = 'skip' + userInput
+        if (skip == 'skipfalse') {
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'dingqishi', url: 'http://h.quyiyuan.com/scm/devops/devops-shell.git']]])
+        RECIPIENT = sh returnStdout: true, script: "python deploy_email_notify.py $GROUP"
+        print RECIPIENT
+        T = sh returnStdout: true, script: 'date +"%Y-%m-%d %H:%M"'
+        TIME = T.replace('\n','')
+        build job: deploy_email_job, parameters: [string(name: 'TAG', value: TAG), string(name: 'JiraID', value: JiraID), text(name: 'CONTENT', value: Description), string(name: 'APP_NAME', value: APP_NAME), string(name: 'TIME', value: TIME), string(name: 'RECIPIENT', value: RECIPIENT)]
+        }
+    }
+
+   stage('jira-confirm'){
+          def userInput = input(
+            id: 'userInput', message: '发布记录', parameters: [
+              [$class: 'BooleanParameterDefinition', defaultValue: false, description: '默认为否', name: 'jira是否打回'],
+              text(defaultValue: '', description: 'JIRA打回原因', name: 'jira_reason'),
+              [$class: 'BooleanParameterDefinition', defaultValue: true, description: '默认为是', name: '发布是否成功'],
+              text(defaultValue: '', description: '发布失败原因', name: 'deploy_reason'),
+              [$class: 'BooleanParameterDefinition', defaultValue: false, description: '默认为否', name: '是否回滚'],
+              text(defaultValue: '', description: '回滚原因', name: 'rollback_reason'),
+            ])
+          wrap([$class: 'BuildUser']) {
+             releaser = env.BUILD_USER
+
+             }
+
+        JIRARefused = userInput['jira是否打回'].toString().replace('false','否').replace('true','是')
+        JIRARefusedReason = userInput['jira_reason']
+        if (JIRARefusedReason == '') {
+            JIRARefusedReason = '/'
+        }
+        succeed = userInput['发布是否成功'].toString().replace('false','否').replace('true','是')
+        failReason = userInput['deploy_reason']
+        if (failReason == '') {
+            failReason = '/'
+        }
+        rollback = userInput['是否回滚'].toString().replace('false','否').replace('true','是')
+        rollbackReason = userInput['rollback_reason']
+        if (rollbackReason == '') {
+            rollbackReason = '/'
+        }
+
+        deploy_record = '{"applicationName": "' + APP_NAME + '", "rollback": "' + rollback + '", "rollbackReason": "' + rollbackReason + '", "succeed": "'+ succeed + '", "JIRARefused": "' + JIRARefused + '", "releaser": "' + releaser + '", "JIRAId": "' + JiraID + '", "failReason": "' + failReason + '", "version": "' + TAG + '", "rollbackVersion": "' + OLD_VERSION + '", "JIRARefusedReason": "' + JIRARefusedReason + '"}'
+//        result = httpRequest consoleLogResponseBody: true, acceptType: 'APPLICATION_JSON_UTF8', contentType: 'APPLICATION_JSON_UTF8', httpMode: 'POST', ignoreSslErrors: true, requestBody: request, responseHandle: 'NONE', url: JPS_API + '/api/add_release_record/'
+        build job: deploy_record_job, parameters: [text(name: 'deploy_record', value: deploy_record)]
+   }
+
+}
+
+
+
+
